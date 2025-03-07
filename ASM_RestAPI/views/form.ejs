@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm xe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea {
+            width: 97%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .back-link a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tạo một xe mới</h1>
+    <form id="carForm" action="/addCar" method="POST">
+        <div class="form-group">
+            <label for="name">Tên xe</label>
+            <input type="text" id="name" name="name" placeholder="Nhập tên xe" required>
+        </div>
+
+        <div class="form-group">
+            <label for="manufacturer">Hãng sản xuất</label>
+            <input type="text" id="manufacturer" name="manufacturer" placeholder="Nhập hãng sản xuất" required>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Năm sản xuất</label>
+            <input type="number" id="year" name="year" placeholder="Nhập năm sản xuất" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Giá bán</label>
+            <input type="number" id="price" name="price" placeholder="Nhập giá bán" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Mô tả</label>
+            <textarea id="description" name="description" placeholder="Nhập mô tả về xe" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn">Tạo xe mới</button>
+    </form>
+
+    <div class="back-link">
+        <a href="/">Trở về danh sách xe</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('carForm').addEventListener('submit', function(event) {
+        const price = document.getElementById('price').value;
+        const year = document.getElementById('year').value;
+        const currentYear = new Date().getFullYear();
+
+        // Kiểm tra giá bán phải là số dương
+        if (price <= 0) {
+            alert('Giá bán phải là một số dương.');
+            event.preventDefault(); // Ngừng form gửi đi
+            return;
+        }
+
+        // Kiểm tra năm sản xuất phải là số dương và <= 2024
+        if (year <= 0 || year > 2024) {
+            alert('Năm sản xuất phải là một số dương và không vượt quá năm 2024.');
+            event.preventDefault(); // Ngừng form gửi đi
+            return;
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 80%;
+      margin: 0 auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .action-buttons a {
+      margin-right: 10px;
+      color: white;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .edit-button {
+      background-color: #ff9800;
+    }
+    .delete-button {
+      background-color: #f44336;
+    }
+    .add-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<h1><%= title %></h1>
+
+<!-- Nút thêm xe mới -->
+<a href="/addCar" class="add-button">Tạo xe mới</a>
+
+<!-- Bảng danh sách xe -->
+<table>
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Tên xe</th>
+    <th>Hãng sản xuất</th>
+    <th>Năm sản xuất</th>
+    <th>Giá bán</th>
+    <th>Mô tả</th>
+    <th>Hành động</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if (cars.length === 0) { %>
+    <tr>
+      <td colspan="7" style="text-align:center;">Không có xe nào</td>
+    </tr>
+  <% } else { %>
+    <% cars.forEach((car, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= car.name %></td>
+        <td><%= car.manufacturer %></td>
+        <td><%= car.year %></td>
+        <td><%= car.price %></td>
+        <td><%= car.description %></td>
+        <td>
+          <form action="/updateCar/<%= car.id %>" method="get" style="display:inline;">
+            <button type="submit">Cập nhật</button>
+          </form>
+          <form action="/deleteCar/<%= car.id %>" method="get" style="display:inline;">
+            <button type="submit">Xóa</button>
+          </form>
+        </td>
+      </tr>
+    <% }); %>
+  <% } %>
+  </tbody>
+</table>
+
+</body>
+</html>
